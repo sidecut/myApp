@@ -1,5 +1,4 @@
 ﻿using System.CommandLine;
-using System.CommandLine.Invocation;
 
 // Create some options:
 var intOption = new Option<int>(
@@ -23,13 +22,11 @@ var rootCommand = new RootCommand
 
 rootCommand.Description = "My sample app";
 
-rootCommand.SetHandler((InvocationContext context, int i, bool b, FileInfo f) =>
+rootCommand.SetHandler((int i, bool b, FileInfo f) =>
 {
-   Console.WriteLine($"The value for --int-option is: {i}");
-   Console.WriteLine($"The value for --bool-option is: {b}");
-   Console.WriteLine($"The value for --file-option is: {f?.FullName ?? "null"}");
-
-   context.ExitCode = i;
+    Console.WriteLine($"The value for --int-option is: {i}");
+    Console.WriteLine($"The value for --bool-option is: {b}");
+    Console.WriteLine($"The value for --file-option is: {f?.FullName ?? "null"}");
 }, intOption, boolOption, fileOption);
 
 // Parse the incoming args and invoke the handler
